@@ -53,12 +53,6 @@ class Character(models.Model):
 
     def save(self, *args, **kwargs):
         self.hit_points = self.calculate_health
-        self.strength = self.rase.strength + self.strength
-        self.dex = self.rase.dex + self.dex
-        self.con = self.rase.con + self.con
-        self.intelligence = self.rase.intelligence + self.intelligence
-        self.wis = self.rase.wis + self.wis
-        self.cha = self.rase.cha + self.cha
         super(Character, self).save(*args, **kwargs)
 
 

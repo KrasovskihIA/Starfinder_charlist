@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Character List</h1>
+    <ul>
+      {% for character in character_list %}
+        <li>
+          <h2>{{ character.name }}</h2>
+          <p><strong>Раса:</strong> {{ character.race }}</p>
+          <p><strong>Класс:</strong> {{ character.char_class }}</p>
+          <p><strong>Пункты Здоровья:</strong> {{ character.hit_points }}</p>
+          <p><strong>Сила:</strong> {{ character.strength }}</p>
+          <p><strong>Ловкость:</strong> {{ character.dex }}</p>
+          <p><strong>Выносливость:</strong> {{ character.con }}</p>
+          <p><strong>Интелект:</strong> {{ character.intelligence }}</p>
+          <p><strong>Мудрость:</strong> {{ character.wis }}</p>
+          <p><strong>Харизма:</strong> {{ character.cha }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+</body>
+</html>

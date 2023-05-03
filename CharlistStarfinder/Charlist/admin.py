@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Character, Race, Character_class
+from .models import Character, Race, CharacterClass
 
-admin.site.register(Character)
-admin.site.register(Race)
-admin.site.register(Character_class)
-
-class YourModelAdmin(admin.ModelAdmin):
+class ModelAdmin(admin.ModelAdmin):
     readonly_fields = ('hit_points',)
+
+admin.site.register(Character, ModelAdmin)
+admin.site.register(Race)
+admin.site.register(CharacterClass)
+

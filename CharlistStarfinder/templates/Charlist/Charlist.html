@@ -11,18 +11,9 @@
     <ul>
       {% for character in character_list %}
         <li>
-          <h2>{{ character.name }}</h2>
+          <a href="character/{{character.name }}/"><h2>{{ character.name }}</h2></a>
           <p><strong>Раса:</strong> {{ character.rase }}</p>
-          <p><strong>Класс:</strong> {{ character.character_class }}</p>
-          <p><strong>Пункты Здоровья:</strong> {{ character.hit_points }}</p>
-          <p><strong>Сила:</strong> {{ character.strength }}</p>
-          <p><strong>Ловкость:</strong> {{ character.dex }}</p>
-          <p><strong>Модификатор ловкости:</strong> {{ character.dex_modifier }}</p>
-          <p><strong>Выносливость:</strong> {{ character.con }}</p>
-          <p><strong>Интелект:</strong> {{ character.intelligence }}</p>
-          <p><strong>Мудрость:</strong> {{ character.wis }}</p>
-          <p><strong>Харизма:</strong> {{ character.cha }}</p>
-          
+          <p><strong>Класс:</strong> {{ character.character_class }}</p>       
         </li>
       {% endfor %}
     </ul>

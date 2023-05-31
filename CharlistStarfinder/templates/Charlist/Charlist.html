@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Character List</h1>
+    <a href="{% url 'character_create' %}"> Создание персонажа</a>
     <ul>
       {% for character in character_list %}
         <li>

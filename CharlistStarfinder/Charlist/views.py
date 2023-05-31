@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, View
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Character, CharacterClass, Race
+from .forms import CharacterForm
+from django.urls import reverse_lazy
 
 
 class CharacterListlView(ListView):
@@ -21,6 +23,28 @@ class CharacterDetailView(DetailView):
     def get_object(self, queryset=None):
         name = self.kwargs.get(self.slug_url_kwarg)
         return get_object_or_404(self.model, **{self.slug_field: name})
+    
+class CharacterCreateView(CreateView):
+    form_class = CharacterForm
+    template_name = 'Charlist/character_create.html'
+    success_url = reverse_lazy('character_list')
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        context = {}
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            context['character_was_created'] = True  
+            context['form'] = self.form_class         
+        else:
+            context['character_was_created_with_errors'] = True
+            context['form'] = form
+        return redirect(self.get_success_url())
+    
+    def get_success_url(self):
+        return reverse_lazy('character_list')
+
 
 
     

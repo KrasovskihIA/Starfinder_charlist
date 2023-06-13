@@ -1,6 +1,22 @@
 from django.db import models
 from django.core.validators import  MaxValueValidator
+from django.contrib.auth.models import User
 
+
+
+# Генерация пути для аватара персонажа
+def character_avatar_path(instance, filename):
+        return f'{instance.name}/avatar/{filename}'
+
+
+# Класс профиля пользователя
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
+    birth_data = models.DateField('Дата регистрации', blank=False, auto_now_add=True, null=False)
+    about = models.TextField(max_length=1000, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username}'
 
 # Абстрактный класс характеристик
 class AbstractCharacteristics(models.Model):
@@ -46,9 +62,11 @@ class CharacterClass(models.Model):
     def __str__(self):
         return f"{self.name_class}"
 
+
 # Персонаж
 class Character(AbstractCharacteristics):
     name = models.CharField('Имя', max_length=50)
+    avatar = models.ImageField(upload_to=character_avatar_path, blank=True)
     rase = models.ForeignKey(Race, on_delete=models.CASCADE, related_name='characters_as_race')
     character_class = models.ForeignKey(CharacterClass, on_delete=models.CASCADE, related_name='characters_as_class')
     # Здоровье и решимость
@@ -63,6 +81,8 @@ class Character(AbstractCharacteristics):
 
     def __str__(self):
         return f"{self.name}"
+
+
 
     # Калькулятор модификатора
     def calculate_modifiers(self):

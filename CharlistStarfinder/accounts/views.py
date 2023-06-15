@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login, logout
-from .forms_auth import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,7 @@ class Login(LoginView):
         print(form.cleaned_data)
         return render(request, self.template_name, context={'form': form})
 
-
+# Выход из системы
 @login_required
 def logout_views(request):
     logout(request)

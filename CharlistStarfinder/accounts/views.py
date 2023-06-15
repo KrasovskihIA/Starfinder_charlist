@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 # Представление для входа на аккаунт
 class Login(LoginView):
-    template_name = ''
+    template_name = 'accounts/login.html'
     form_class = LoginForm
 
     def post(self, request, *args, **kwargs):

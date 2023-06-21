@@ -33,8 +33,8 @@ def logout_views(request):
 
 
 # Представление для регистрации
-class CreateView(View):
-    template_name = ''
+class CreateUserView(View):
+    template_name = 'accounts/signup.html'
     form_class = SignupForm
 
     def get(self, request, *args, **kwargs):

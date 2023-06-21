@@ -3,6 +3,7 @@ from django.core.validators import  MaxValueValidator
 
 
 
+
 # Генерация пути для аватара персонажа
 def character_avatar_path(instance, filename):
         return f'{instance.name}/avatar/{filename}'
@@ -70,7 +71,6 @@ class Character(AbstractCharacteristics):
 
     def __str__(self):
         return f"{self.name}"
-
 
 
     # Калькулятор модификатора

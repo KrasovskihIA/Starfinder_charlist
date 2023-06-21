@@ -9,8 +9,9 @@
 <body>
     <h1>Character Detail</h1>
     <ul>
-        <li>
+        <li>        
           <h2>{{ character.name }}</h2>
+          <p><img src="{{ character.avatar.url }}" alt=""></p>
           <p><strong>Раса:</strong> {{ character.rase }}</p>
           <p><strong>Класс:</strong> {{ character.character_class }}</p>
           <p><strong>Пункты Здоровья:</strong> {{ character.hit_points }}</p>

@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Character, CharacterClass, Race
 from .forms import CharacterForm
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 
 
 class CharacterListlView(ListView):

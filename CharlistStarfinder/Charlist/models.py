@@ -53,12 +53,23 @@ class CharacterClass(models.Model):
         return f"{self.name_class}"
 
 
+# Тема персонажа
+class CharacterTheme(AbstractCharacteristics):
+    name_theme = models.CharField('Тема персонажа', max_length=50)
+    description = models.TextField('Описание')
+    abilities = models.TextField('Способности')
+
+    def __str__(self):
+        return f"{self.name_theme}"
+
+
 # Персонаж
 class Character(AbstractCharacteristics):
     name = models.CharField('Имя', max_length=50)
     avatar = models.ImageField(upload_to=character_avatar_path, blank=True)
     rase = models.ForeignKey(Race, on_delete=models.CASCADE, related_name='characters_as_race')
     character_class = models.ForeignKey(CharacterClass, on_delete=models.CASCADE, related_name='characters_as_class')
+    theme = models.ForeignKey(CharacterTheme, on_delete=models.CASCADE, related_name='characters_as_theme', default=None)
     # Здоровье и решимость
     hit_points = models.IntegerField('Здоровье', default=0, editable=True)
     # Модификаторы характеристик
@@ -89,7 +100,8 @@ class Character(AbstractCharacteristics):
             if isinstance(field, models.IntegerField) and field.name != 'id' and field.name != 'hit_points':
                 field_value = getattr(self, field.name)
                 race_field_value = getattr(self.rase, field.name)
-                setattr(self, f'{field.name}', field_value + race_field_value)
+                theme_field_value = getattr(self.theme, field.name)
+                setattr(self, f'{field.name}', field_value + race_field_value + theme_field_value)
 
 
     # Рассчет пунктов здоровья

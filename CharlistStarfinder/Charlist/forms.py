@@ -4,11 +4,13 @@ from .models import Character
 class CharacterForm(forms.ModelForm):
     class Meta:
         model = Character
-        fields = ['name', 'rase', 'character_class', 'strength', 'dex', 'con', 'intelligence', 'wis', 'cha' ]
+        fields = ['avatar', 'name', 'rase', 'character_class', 'theme', 'strength', 'dex', 'con', 'intelligence', 'wis', 'cha' ]
         labels = {
+                'avatar' : 'Загрузите изображение ',
                 'name': 'Введите Имя',
                 'rase': 'Выберите расу',
-                'character_class': 'Выберите класс',
+                'character_class': 'Класс персонажа',
+                'theme' : 'Тема персонажа' ,
                 'strength': 'Сила',
                 'dex': 'Ловкость',
                 'con': 'Выносливость',
@@ -27,6 +29,10 @@ class CharacterForm(forms.ModelForm):
                 'intelligence': forms.NumberInput(attrs={'max': 26}),
                 'wis': forms.NumberInput(attrs={'max': 26}),
                 'cha': forms.NumberInput(attrs={'max': 26}),
+                'avatar': forms.ClearableFileInput(attrs={
+                    'class': 'form-control-file',
+                    'type': 'file'
+                })
             }
     
  

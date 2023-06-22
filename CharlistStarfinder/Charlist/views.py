@@ -24,6 +24,7 @@ class CharacterDetailView(DetailView):
     def get_object(self, queryset=None):
         name = self.kwargs.get(self.slug_url_kwarg)
         return get_object_or_404(self.model, **{self.slug_field: name})
+
     
 class CharacterCreateView(CreateView):
     form_class = CharacterForm

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Character, CharacterClass, Race
 from .forms import CharacterForm
 from django.urls import reverse_lazy
@@ -47,6 +47,12 @@ class CharacterCreateView(CreateView):
     
     def get_success_url(self):
         return reverse_lazy('character_list')
+
+
+class CharacterEditView(UpdateView):
+    model = Character
+    template_name = ''
+    form_class = CharacterForm
 
 
 

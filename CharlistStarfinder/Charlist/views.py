@@ -5,7 +5,7 @@ from .forms import CharacterForm
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 
-
+# Отображение персонажей
 class CharacterListlView(ListView):
     model = Character
     template_name = 'Charlist/Charlist.html'
@@ -13,7 +13,8 @@ class CharacterListlView(ListView):
 
     def get_queryset(self):
         return self.model.objects.all()
-    
+
+# Детальное представление персонажей
 class CharacterDetailView(DetailView):
     model = Character
     template_name = 'Charlist/character_detail.html'
@@ -25,7 +26,7 @@ class CharacterDetailView(DetailView):
         name = self.kwargs.get(self.slug_url_kwarg)
         return get_object_or_404(self.model, **{self.slug_field: name})
 
-    
+# Создание персонажей 
 class CharacterCreateView(CreateView):
     form_class = CharacterForm
     template_name = 'Charlist/character_create.html'

@@ -37,6 +37,7 @@ class CharacterCreateView(CreateView):
         context = {}
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user
             post.save()
             context['character_was_created'] = True  
             context['form'] = self.form_class         

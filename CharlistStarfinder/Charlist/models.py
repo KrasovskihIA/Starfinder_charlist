@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import  MaxValueValidator
+from accounts.models import Profile
+from django.contrib.auth.models import User
 
 
 
@@ -65,6 +67,7 @@ class CharacterTheme(AbstractCharacteristics):
 
 # Персонаж
 class Character(AbstractCharacteristics):
+    author = models.OneToOneField(User, on_delete=models.CASCADE, related_name='characters_as_author')
     name = models.CharField('Имя', max_length=50)
     avatar = models.ImageField(upload_to=character_avatar_path, blank=True)
     rase = models.ForeignKey(Race, on_delete=models.CASCADE, related_name='characters_as_race')

@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.exceptions import PermissionDenied
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Character
-from audioop import reverse
+from django.urls import reverse
 from .forms import CharacterForm
 from django.urls import reverse_lazy
 
@@ -69,6 +69,19 @@ class CharacterEditView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('character_list')
 
+# Удаление персонажей 
+class CharacterDeleteView(DeleteView):
+    model = Character
+    slug_field = 'name'
+    slug_url_kwarg = 'name'
+    template_name = 'Charlist/character_delete.html'
 
-
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != request.user:
+            raise PermissionDenied('Вы не автор этого персонажа')
+        else:
+            return super(CharacterDeleteView, self).dispatch(request, *args, **kwargs)
     
+    def get_success_url(self):
+        return reverse_lazy('character_list')

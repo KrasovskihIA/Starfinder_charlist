@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CharacterListlView, CharacterDetailView, CharacterCreateView, CharacterEditView
+from django.views.generic import TemplateView
+from .views import CharacterListlView, CharacterDetailView, CharacterCreateView, CharacterEditView, CharacterDeleteView
 
 
 urlpatterns = [
@@ -7,4 +8,6 @@ urlpatterns = [
     path(f'character/<str:name>/', CharacterDetailView.as_view(), name='character_detail'),
     path('create/', CharacterCreateView.as_view(), name ='character_create'),
     path('character/<str:name>/edit', CharacterEditView.as_view(), name='character_edit'),
+    path('character/<str:name>/delete', CharacterDeleteView.as_view(), name='character_delete'),
+    
 ]

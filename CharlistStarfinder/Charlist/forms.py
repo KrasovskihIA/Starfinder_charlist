@@ -4,13 +4,14 @@ from .models import Character
 class CharacterForm(forms.ModelForm):
     class Meta:
         model = Character
-        fields = ['avatar', 'name', 'rase', 'character_class', 'theme', 'strength', 'dex', 'con', 'intelligence', 'wis', 'cha' ]
+        fields = ['avatar', 'name', 'rase', 'character_class', 'theme', 'cha_weapon', 'strength', 'dex', 'con', 'intelligence', 'wis', 'cha' ]
         labels = {
                 'avatar' : 'Загрузите изображение ',
                 'name': 'Введите Имя',
                 'rase': 'Выберите расу',
                 'character_class': 'Класс персонажа',
                 'theme' : 'Тема персонажа' ,
+                'cha_weapon': 'Оружие',
                 'strength': 'Сила',
                 'dex': 'Ловкость',
                 'con': 'Выносливость',

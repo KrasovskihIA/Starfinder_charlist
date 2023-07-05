@@ -5,11 +5,28 @@ from django.contrib.auth.models import User
 
 
 
-
-
 # Генерация пути для аватара персонажа
 def character_avatar_path(instance, filename):
         return f'{instance.name}/avatar/{filename}'
+
+# Оружие
+class Weapon(models.Model):
+    KEY_CHARACTERISKIC = [
+        ('near', 'Оружие ближнего боя'),
+        ('further', 'Оружие дальнего боя'),
+    ]
+
+    name = models.CharField('Название', max_length=50)
+    level = models.IntegerField('Уровень оружия', default=0, editable=True)
+    price = models.IntegerField('Цена', default=0, editable=True)
+    damage = models.CharField('Урон', max_length=10)
+    crete = models.CharField('Крит', max_length=10)
+    features = models.CharField('Особые свойства', max_length=10)
+    distance = models.CharField(max_length=20, choices=KEY_CHARACTERISKIC, default='near')
+
+    def __str__(self):
+        return f"{self.name}"
+
 
 # Абстрактный класс характеристик
 class AbstractCharacteristics(models.Model):
@@ -76,6 +93,8 @@ class Character(AbstractCharacteristics):
     theme = models.ForeignKey(CharacterTheme, on_delete=models.CASCADE, related_name='characters_as_theme', default=None)
     # Здоровье и решимость
     hit_points = models.IntegerField('Здоровье', default=0, editable=True)
+    # Оружие и одежда
+    cha_weapon = models.ManyToManyField(Weapon, related_name='characters_weapon')
     # Модификаторы характеристик
     strength_modifier = models.IntegerField('Модификатор силы', default=0, editable=True)
     dex_modifier = models.IntegerField('Модификатор ловкости', default=0, editable=True)
@@ -86,7 +105,6 @@ class Character(AbstractCharacteristics):
 
     def __str__(self):
         return f"{self.name}"
-
 
     # Калькулятор модификатора
     def calculate_modifiers(self):
@@ -99,7 +117,6 @@ class Character(AbstractCharacteristics):
                 theme_field_value = getattr(self.theme, field.name)
                 setattr(self, f'{field.name}_modifier', modifier[field_value + race_field_value + theme_field_value])
         
- 
     # Рассчет пунктов здоровья
     @property
     def calculate_health(self):
